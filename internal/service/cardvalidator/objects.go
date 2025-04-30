@@ -1,5 +1,7 @@
 package cardvalidator
 
+import "github.com/labstack/echo/v4"
+
 type CardValidationRequest struct {
 	Number   string `json:"number" validate:"required"`
 	ExpMonth int    `json:"exp_month" validate:"required"`
@@ -7,11 +9,6 @@ type CardValidationRequest struct {
 }
 
 type CardValidationResponse struct {
-	Valid bool                 `json:"valid"`
-	Error *CardValidationError `json:"error,omitempty"`
-}
-
-type CardValidationError struct {
-	Code    string `json:"code"`
-	Message string `json:"message"`
+	Valid bool `json:"valid"`
+	*echo.HTTPError
 }
