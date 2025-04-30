@@ -1,6 +1,9 @@
 package cardvalidator
 
+import "context"
+
 type CardValidator interface {
+	Validate(ctx context.Context, req *CardValidationRequest) (*CardValidationResponse, error)
 }
 
 type Service struct {
@@ -9,4 +12,8 @@ type Service struct {
 
 func NewService() *Service {
 	return &Service{}
+}
+
+func (s *Service) Validate(ctx context.Context, req *CardValidationRequest) (*CardValidationResponse, error) {
+	return nil, nil
 }

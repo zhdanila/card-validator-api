@@ -1,0 +1,104 @@
+{
+    "swagger": "2.0",
+    "info": {
+        "contact": {}
+    },
+    "paths": {
+        "/card/validate": {
+            "post": {
+                "description": "Validates a card's number, expiration month, and year",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Card"
+                ],
+                "summary": "Validate a card",
+                "operationId": "validate-card",
+                "parameters": [
+                    {
+                        "description": "Card Details",
+                        "name": "card",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/card-validator-api_internal_service_cardvalidator.CardValidationRequest"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/card-validator-api_internal_service_cardvalidator.CardValidationResponse"
+                        }
+                    },
+                    "400": {
+                        "description": "Invalid request",
+                        "schema": {
+                            "$ref": "#/definitions/echo.HTTPError"
+                        }
+                    },
+                    "500": {
+                        "description": "Internal server error",
+                        "schema": {
+                            "$ref": "#/definitions/echo.HTTPError"
+                        }
+                    }
+                }
+            }
+        }
+    },
+    "definitions": {
+        "card-validator-api_internal_service_cardvalidator.CardValidationError": {
+            "type": "object",
+            "properties": {
+                "code": {
+                    "type": "string"
+                },
+                "message": {
+                    "type": "string"
+                }
+            }
+        },
+        "card-validator-api_internal_service_cardvalidator.CardValidationRequest": {
+            "type": "object",
+            "required": [
+                "exp_month",
+                "exp_year",
+                "number"
+            ],
+            "properties": {
+                "exp_month": {
+                    "type": "integer"
+                },
+                "exp_year": {
+                    "type": "integer"
+                },
+                "number": {
+                    "type": "string"
+                }
+            }
+        },
+        "card-validator-api_internal_service_cardvalidator.CardValidationResponse": {
+            "type": "object",
+            "properties": {
+                "error": {
+                    "$ref": "#/definitions/card-validator-api_internal_service_cardvalidator.CardValidationError"
+                },
+                "valid": {
+                    "type": "boolean"
+                }
+            }
+        },
+        "echo.HTTPError": {
+            "type": "object",
+            "properties": {
+                "message": {}
+            }
+        }
+    }
+}

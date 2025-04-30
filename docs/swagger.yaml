@@ -1,0 +1,67 @@
+definitions:
+  card-validator-api_internal_service_cardvalidator.CardValidationError:
+    properties:
+      code:
+        type: string
+      message:
+        type: string
+    type: object
+  card-validator-api_internal_service_cardvalidator.CardValidationRequest:
+    properties:
+      exp_month:
+        type: integer
+      exp_year:
+        type: integer
+      number:
+        type: string
+    required:
+    - exp_month
+    - exp_year
+    - number
+    type: object
+  card-validator-api_internal_service_cardvalidator.CardValidationResponse:
+    properties:
+      error:
+        $ref: '#/definitions/card-validator-api_internal_service_cardvalidator.CardValidationError'
+      valid:
+        type: boolean
+    type: object
+  echo.HTTPError:
+    properties:
+      message: {}
+    type: object
+info:
+  contact: {}
+paths:
+  /card/validate:
+    post:
+      consumes:
+      - application/json
+      description: Validates a card's number, expiration month, and year
+      operationId: validate-card
+      parameters:
+      - description: Card Details
+        in: body
+        name: card
+        required: true
+        schema:
+          $ref: '#/definitions/card-validator-api_internal_service_cardvalidator.CardValidationRequest'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/card-validator-api_internal_service_cardvalidator.CardValidationResponse'
+        "400":
+          description: Invalid request
+          schema:
+            $ref: '#/definitions/echo.HTTPError'
+        "500":
+          description: Internal server error
+          schema:
+            $ref: '#/definitions/echo.HTTPError'
+      summary: Validate a card
+      tags:
+      - Card
+swagger: "2.0"
