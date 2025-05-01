@@ -12,7 +12,7 @@ var errs = struct {
 }{
 	InvalidCardNumber: echo.NewHTTPError(http.StatusBadRequest, map[string]interface{}{
 		"code":    enums.ErrInvalidCardNumber.String(),
-		"message": "Invalid card number: must be 13 to 19 digits",
+		"message": "Invalid card number",
 	}),
 	ExpiredCard: echo.NewHTTPError(http.StatusBadRequest, map[string]interface{}{
 		"code":    enums.ErrCardExpired.String(),

@@ -28,6 +28,10 @@ func (cfg *Config) Load() error {
 		if err := loadDevConfig(cfg); err != nil {
 			return err
 		}
+	case "test":
+		if err := loadTestConfig(cfg); err != nil {
+			return err
+		}
 	default:
 		return fmt.Errorf("invalid ENV value: %s", cfg.Env)
 	}
@@ -54,6 +58,17 @@ func validateConfig(cfg *Config) error {
 	validate := validator.New()
 	if err := validate.Struct(cfg); err != nil {
 		return fmt.Errorf("configuration validation failed: %v", err)
+	}
+	return nil
+}
+
+func loadTestConfig(cfg *Config) error {
+	viper.SetConfigFile("test.env")
+	if err := viper.ReadInConfig(); err != nil {
+		return fmt.Errorf("error reading config file: %v", err)
+	}
+	if err := viper.Unmarshal(cfg); err != nil {
+		return fmt.Errorf("failed to unmarshal config: %s", err)
 	}
 	return nil
 }

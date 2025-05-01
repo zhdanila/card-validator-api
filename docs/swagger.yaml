@@ -1,14 +1,9 @@
 definitions:
-  card-validator-api_internal_service_cardvalidator.CardValidationError:
-    properties:
-      code:
-        type: string
-      message:
-        type: string
-    type: object
   card-validator-api_internal_service_cardvalidator.CardValidationRequest:
     properties:
       exp_month:
+        maximum: 12
+        minimum: 1
         type: integer
       exp_year:
         type: integer
@@ -21,8 +16,7 @@ definitions:
     type: object
   card-validator-api_internal_service_cardvalidator.CardValidationResponse:
     properties:
-      error:
-        $ref: '#/definitions/card-validator-api_internal_service_cardvalidator.CardValidationError'
+      message: {}
       valid:
         type: boolean
     type: object

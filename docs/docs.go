@@ -64,17 +64,6 @@ const docTemplate = `{
         }
     },
     "definitions": {
-        "card-validator-api_internal_service_cardvalidator.CardValidationError": {
-            "type": "object",
-            "properties": {
-                "code": {
-                    "type": "string"
-                },
-                "message": {
-                    "type": "string"
-                }
-            }
-        },
         "card-validator-api_internal_service_cardvalidator.CardValidationRequest": {
             "type": "object",
             "required": [
@@ -84,7 +73,9 @@ const docTemplate = `{
             ],
             "properties": {
                 "exp_month": {
-                    "type": "integer"
+                    "type": "integer",
+                    "maximum": 12,
+                    "minimum": 1
                 },
                 "exp_year": {
                     "type": "integer"
@@ -97,9 +88,7 @@ const docTemplate = `{
         "card-validator-api_internal_service_cardvalidator.CardValidationResponse": {
             "type": "object",
             "properties": {
-                "error": {
-                    "$ref": "#/definitions/card-validator-api_internal_service_cardvalidator.CardValidationError"
-                },
+                "message": {},
                 "valid": {
                     "type": "boolean"
                 }
