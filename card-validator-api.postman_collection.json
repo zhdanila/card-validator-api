@@ -1,0 +1,82 @@
+{
+	"info": {
+		"_postman_id": "d5dfba08-9f6b-4405-857f-852fe0763175",
+		"name": "card-validator-api",
+		"schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json",
+		"_exporter_id": "32398328"
+	},
+	"item": [
+		{
+			"name": "Validate card, success",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"number\": \"4111111111111111\",\n    \"exp_month\": 12,\n    \"exp_year\": 2028\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": "{{url}}/card/validate"
+			},
+			"response": []
+		},
+		{
+			"name": "Validate card, invalid card number",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"number\": \"4111111111111118\",\n    \"exp_month\": 12,\n    \"exp_year\": 2028\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": "{{url}}/card/validate"
+			},
+			"response": []
+		},
+		{
+			"name": "Validate card, invalid month date",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"number\": \"4111111111111111\",\n    \"exp_month\": 13,\n    \"exp_year\": 2028\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": "{{url}}/card/validate"
+			},
+			"response": []
+		},
+		{
+			"name": "Validate card, invalid year date",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"number\": \"4111111111111111\",\n    \"exp_month\": 12,\n    \"exp_year\": 2015\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": "{{url}}/card/validate"
+			},
+			"response": []
+		}
+	]
+}
